@@ -362,8 +362,10 @@ function pjax(options) {
 
   if (xhr.readyState > 0) {
     if (options.push && !options.replace) {
-      // Cache current container element before replacing it
-      cachePush(pjax.state.id, cloneContents(context))
+      if (options.maxCacheLength > 0) {
+        // Cache current container element before replacing it
+        cachePush(pjax.state.id, cloneContents(context))
+      }
 
       window.history.pushState(null, "", options.requestUrl)
     }
